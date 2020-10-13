@@ -7,6 +7,10 @@
   <modules>
     <module>flink-cdc</module>
     <module>flink-core</module>
+    <module>flink-state</module>
+    <module>flink-task</module>
+    <module>flink-sink</module>
+      <module>thread-study</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>
