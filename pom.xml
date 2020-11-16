@@ -12,6 +12,7 @@
     <module>flink-sink</module>
       <module>thread-study</module>
       <module>flink-client</module>
+      <module>flink-website-demo</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>

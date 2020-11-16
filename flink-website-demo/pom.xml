@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.wakedata.whx</groupId>
-  <artifactId>flink-client</artifactId>
+  <artifactId>flink-website-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>flink-client</name>
+  <name>flink-website-demo</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -20,10 +20,15 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.flink</groupId>
-      <artifactId>flink-clients_2.12</artifactId>
-      <version>1.11.1</version>
-      <scope>provided</scope>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.wakedata.whx</groupId>
+      <artifactId>flink-core</artifactId>
+      <version>${project.version}</version>
     </dependency>
   </dependencies>
 
