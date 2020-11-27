@@ -8,10 +8,7 @@ import org.apache.flink.connector.jdbc.internal.options.JdbcOptions;
 import org.apache.flink.connector.jdbc.table.JdbcUpsertTableSink;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.Table;
-import org.apache.flink.table.api.TableSchema;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
-import org.apache.flink.types.Row;
-import org.apache.flink.util.CloseableIterator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -82,7 +79,7 @@ public class DebeziumMysqlTest {
         /**
          * SINK End
          */
-        streamTableEnv.registerTableSink("upsert_mysql_table",jdbcUpsertTableSink);
+        streamTableEnv.registerTableSink("upsert_mysql_table", jdbcUpsertTableSink);
         try {
             JobExecutionResult jobExecutionResult = streamTableEnv
                 .executeSql("insert into upsert_mysql_table \n"
