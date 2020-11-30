@@ -1,10 +1,16 @@
 package com.wakedata.whx;
 
-import org.apache.flink.api.java.tuple.Tuple3;
-import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.flink.api.java.tuple.Tuple3;
+import org.apache.flink.configuration.Configuration;
+import org.apache.flink.contrib.streaming.state.PredefinedOptions;
+import org.apache.flink.contrib.streaming.state.RocksDBOptions;
+import org.apache.flink.contrib.streaming.state.RocksDBStateBackend;
+import org.apache.flink.streaming.api.CheckpointingMode;
+import org.apache.flink.streaming.api.environment.CheckpointConfig.ExternalizedCheckpointCleanup;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 /**
  * @author :wanghuxiong
@@ -35,35 +41,57 @@ public class EnvironmentUtil {
         Tuple3<String, String, Long> tuple11 = Tuple3.of("w2", "2020-12-01 11:14:12", 25L);//*
         Tuple3<String, String, Long> tuple12 = Tuple3.of("w3", "2020-12-01 11:14:14", 27L);//*
         quickAddElementToList(tuple3StringStringLongElements,
-                tuple0,
-                tuple00,
-                tuple1,
-                tuple2,
-                tuple3,
-                tuple4,
-                tuple5,
-                tuple6,
-                tuple7,
-                tuple8,
-                tuple9,
-                tuple10,
-                tuple11,
-                tuple12
+            tuple0,
+            tuple00,
+            tuple1,
+            tuple2,
+            tuple3,
+            tuple4,
+            tuple5,
+            tuple6,
+            tuple7,
+            tuple8,
+            tuple9,
+            tuple10,
+            tuple11,
+            tuple12
         );
     }
 
     /**
      * 创建执行环境
+     *
      * @return
      */
     public static StreamExecutionEnvironment getStreamExecutionEnvironment() {
         if (streamExecutionEnvironment == null) {
             synchronized (EnvironmentUtil.class) {
                 if (streamExecutionEnvironment == null) {
-                    return StreamExecutionEnvironment.getExecutionEnvironment();
+                    streamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment();
                 }
             }
         }
+        // 设置 Checkpoint间隔
+        streamExecutionEnvironment.enableCheckpointing(5000L, CheckpointingMode.EXACTLY_ONCE);
+        // 设置 Checkpoint超时时间
+        streamExecutionEnvironment.getCheckpointConfig().setCheckpointTimeout(3000L);
+        // 并行 Checkpoint
+        streamExecutionEnvironment.getCheckpointConfig().setMaxConcurrentCheckpoints(2);
+        // 设置checkpoint最小时间间隔
+        streamExecutionEnvironment.getCheckpointConfig().setMinPauseBetweenCheckpoints(2000L);
+        // 设置任务取消时，是否清理checkPoint
+        streamExecutionEnvironment.getCheckpointConfig().enableExternalizedCheckpoints(
+            ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION);
+        // 设置state的存储方式
+        try {
+            System.setProperty("HADOOP_USER_NAME", "hive");
+            RocksDBStateBackend rocksDBStateBackend = new RocksDBStateBackend("hdfs://hd-node-3-24.wakedata.com:8020/test/whx");
+            streamExecutionEnvironment.setStateBackend(rocksDBStateBackend);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 设置flink默认并行度
+        streamExecutionEnvironment.setParallelism(3);
         return streamExecutionEnvironment;
     }
 
