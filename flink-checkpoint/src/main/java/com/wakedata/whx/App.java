@@ -15,6 +15,7 @@ public class App
 {
     public static void main( String[] args )
     {
+        EnvironmentUtil.turnOnCheckpoint();
         StreamExecutionEnvironment streamExecutionEnvironment = EnvironmentUtil
             .getStreamExecutionEnvironment();
         Properties props = new Properties();
