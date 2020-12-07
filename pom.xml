@@ -10,11 +10,12 @@
     <module>flink-state</module>
     <module>flink-task</module>
     <module>flink-sink</module>
-      <module>thread-study</module>
-      <module>flink-client</module>
-      <module>flink-website-demo</module>
+    <module>thread-study</module>
+    <module>flink-client</module>
+    <module>flink-website-demo</module>
     <module>flink-checkpoint</module>
-      <module>flink-table</module>
+    <module>flink-iceberg</module>
+    <module>flink-table</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -40,11 +41,6 @@
     <dependency>
       <groupId>org.apache.flink</groupId>
       <artifactId>flink-java</artifactId>
-      <version>${flink.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.flink</groupId>
-      <artifactId>flink-table-common</artifactId>
       <version>${flink.version}</version>
     </dependency>
     <dependency>
