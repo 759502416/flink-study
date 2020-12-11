@@ -38,10 +38,8 @@ public class App {
 
         tenv.executeSql("show tables").print();
         //   tenv.executeSql("show databases").print();
-        tenv.executeSql("insert into iceberg.iceberg_db.sourcetable values(1,'whx')");
-        tenv.executeSql("insert into iceberg.iceberg_db.sourcetable values(2,'wc')");
-
-
+        tenv.executeSql("insert into iceberg.iceberg_db.sourcetable values(10,'whx')");
+        tenv.executeSql("insert into iceberg.iceberg_db.sourcetable values(20,'wc')");
         tenv.executeSql("select * from iceberg.iceberg_db.sourcetable").print();
     }
 }
