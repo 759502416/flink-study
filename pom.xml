@@ -157,6 +157,19 @@
     </dependency>
   </dependencies>
 
+  <repositories>
+    <!-- 192.168.0.201远程仓库 -->
+    <repository>
+      <id>hoston</id>
+      <name>hoston</name>
+      <layout>default</layout>
+      <url>	https://repository.cloudera.com/artifactory/libs-release-local/</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <build>
     <plugins>
       <plugin>
