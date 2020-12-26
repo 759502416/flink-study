@@ -99,7 +99,7 @@ public class EnvironmentUtil {
         // 设置state的存储方式
         try {
             System.setProperty("HADOOP_USER_NAME", "hive");
-            RocksDBStateBackend rocksDBStateBackend = new RocksDBStateBackend("hdfs://hd-node-3-24.wakedata.com:8020/test/whx");
+            RocksDBStateBackend rocksDBStateBackend = new RocksDBStateBackend("hdfs://hd-node-3-23.wakedata.com:8020/test/whx");
             streamExecutionEnvironment.setStateBackend(rocksDBStateBackend);
         } catch (IOException e) {
             e.printStackTrace();
