@@ -16,6 +16,7 @@
     <module>flink-checkpoint</module>
     <module>flink-iceberg</module>
     <module>flink-table</module>
+      <module>leetcode</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>
