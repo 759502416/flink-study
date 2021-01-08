@@ -25,11 +25,12 @@ public class ConsumerProducer {
 
                 synchronized (queue) {
                     while (a.equals("a")) {
-                        while (queue.size() == 10) {
+                       // while (queue.size() > 0) {
+                        while (queue.size() >= 10) {
                             queue.wait();
                         }
                         System.err.println("生产");
-                        queue.add(queue.size() + "");
+                        queue.add(queue.size() +1+ "");
                         queue.notifyAll();
                     }
                 }
