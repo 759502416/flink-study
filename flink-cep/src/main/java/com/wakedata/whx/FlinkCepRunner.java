@@ -2,6 +2,7 @@ package com.wakedata.whx;
 
 
 import com.alibaba.fastjson.JSONObject;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -62,9 +63,11 @@ public class FlinkCepRunner {
         FlinkKafkaConsumer<String> stringFlinkKafkaConsumer = new FlinkKafkaConsumer<>(KAFKA_TOPIC,
             new SimpleStringSchema(), properties);
         // 添加实时环境，并添加kafka 数据源
+        // TODO 创建数据流
         DataStreamSource<String> dataStreamSource = streamExecutionEnvironment
             .addSource(stringFlinkKafkaConsumer);
         // 解析kafka的数据，按照预定格式解析
+        // TODO 创建衍生流
         KeyedStream<Tuple3<Long, String, Long>, Long> tempData = dataStreamSource
             .map(new MapFunction<String, Tuple3<Long, String, Long>>() {
                 @Override
@@ -83,7 +86,8 @@ public class FlinkCepRunner {
                     return longStringLongTuple3.f0;
                 }
             });
-
+        //TODO 编写判断规则
+        // 设置通用前置规则：money大于5
         Pattern<Tuple3<Long, String, Long>, Tuple3<Long, String, Long>> begin = Pattern.<Tuple3<Long, String, Long>>begin(
             "begin").where(
             new SimpleCondition<Tuple3<Long, String, Long>>() {
@@ -119,19 +123,31 @@ public class FlinkCepRunner {
                         .equals(vidUserName);
                 }
             });
-        PatternStream<Tuple3<Long, String, Long>> sVipPatternStream = CEP.pattern(tempData, sVipPattern);
-        PatternStream<Tuple3<Long, String, Long>> vipPatternStream = CEP.pattern(tempData, vipPattern);
-        PatternStream<Tuple3<Long, String, Long>> normalPatternStream = CEP.pattern(tempData, normalPattern);
-        PatternProcessFunction<Tuple3<Long, String, Long>, Object> patternProcessFunction = new PatternProcessFunction<Tuple3<Long, String, Long>, Object>() {
+        PatternStream<Tuple3<Long, String, Long>> sVipPatternStream = CEP
+            .pattern(tempData, sVipPattern);
+        PatternStream<Tuple3<Long, String, Long>> vipPatternStream = CEP
+            .pattern(tempData, vipPattern);
+        PatternStream<Tuple3<Long, String, Long>> normalPatternStream = CEP
+            .pattern(tempData, normalPattern);
+        PatternProcessFunction<Tuple3<Long, String, Long>, List<Tuple3<Long, String, Long>>> patternProcessFunction = new PatternProcessFunction<Tuple3<Long, String, Long>, List<Tuple3<Long, String, Long>>>() {
             @Override
             public void processMatch(Map<String, List<Tuple3<Long, String, Long>>> map,
-                Context context, Collector<Object> collector) throws Exception {
-                collector.collect(map.toString());
+                Context context, Collector<List<Tuple3<Long, String, Long>>> collector)
+                throws Exception {
+                Collection<List<Tuple3<Long, String, Long>>> values = map.values();
+                values.forEach(
+                    action -> {
+                        collector.collect(action);
+                    }
+                );
             }
         };
-        sVipPatternStream.process(patternProcessFunction).print();
-        vipPatternStream.process(patternProcessFunction).print();
-        normalPatternStream.process(patternProcessFunction).print();
+        sVipPatternStream.process(patternProcessFunction)
+            .addSink(new RichMysqlCaseSink(UserInfo.SVIP));
+        vipPatternStream.process(patternProcessFunction)
+            .addSink(new RichMysqlCaseSink(UserInfo.VIP));
+        normalPatternStream.process(patternProcessFunction)
+            .addSink(new RichMysqlCaseSink(UserInfo.NORMAL));
         streamExecutionEnvironment.execute("CEP");
     }
 

@@ -34,7 +34,7 @@
   <properties>
     <java.version>1.8</java.version>
     <junit.version>4.12</junit.version>
-    <flink.version>1.11.2</flink.version>
+    <flink.version>1.12.0</flink.version>
     <scala.version>2.12</scala.version>
     <lombok.version>1.18.12</lombok.version>
   </properties>
