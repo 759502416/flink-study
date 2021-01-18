@@ -18,6 +18,7 @@
     <module>flink-table</module>
     <module>flink-cep</module>
       <module>leetcode</module>
+    <module>flink-window</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>

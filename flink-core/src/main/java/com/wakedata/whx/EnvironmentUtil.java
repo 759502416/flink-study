@@ -1,5 +1,6 @@
 package com.wakedata.whx;
 
+import org.apache.flink.api.common.ExecutionConfig;
 import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.contrib.streaming.state.RocksDBStateBackend;
 import org.apache.flink.streaming.api.CheckpointingMode;
@@ -80,7 +81,7 @@ public class EnvironmentUtil {
             }
         }
         // 设置flink默认并行度
-        streamExecutionEnvironment.setParallelism(3);
+       // streamExecutionEnvironment.setParallelism(1);
         // 如果不开启checkpoint，立即返回就完事了
         if (!isNeedCheckPoint) {
             return streamExecutionEnvironment;

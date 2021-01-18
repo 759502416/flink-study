@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d %X{tid} %-5p [%t] [%l] - %m%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="INFO">
+			<AppenderRef ref="CONSOLE" />
+		</Root>
+		<logger name="org.apache.kafka" level="ERROR">
+			<appender-ref ref="STDOUT" />
+		</logger>
+	</Loggers>
+</Configuration>
