@@ -79,7 +79,7 @@ public class DebeziumMysqlTest {
         /**
          * SINK End
          */
-        streamTableEnv.registerTableSink("upsert_mysql_table", jdbcUpsertTableSink);
+        /*streamTableEnv.registerTableSink("upsert_mysql_table", jdbcUpsertTableSink);
         try {
             JobExecutionResult jobExecutionResult = streamTableEnv
                 .executeSql("insert into upsert_mysql_table \n"
@@ -89,11 +89,13 @@ public class DebeziumMysqlTest {
                 .getJobExecutionResult(Thread.currentThread().getContextClassLoader())
                 .get();
             System.err.println(jobExecutionResult.toString());
-        } catch (InterruptedException e) {
+             } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+            */
+
     }
 
 
