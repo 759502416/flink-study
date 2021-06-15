@@ -1,6 +1,6 @@
 package com.wakedata.whx.wait;
 
-import java.util.Queue;
+import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
@@ -25,12 +25,12 @@ public class ConsumerProducer {
 
                 synchronized (queue) {
                     while (a.equals("a")) {
-                       // while (queue.size() > 0) {
+                        // while (queue.size() > 0) {
                         while (queue.size() >= 10) {
                             queue.wait();
                         }
                         System.err.println("生产");
-                        queue.add(queue.size() +1+ "");
+                        queue.add(queue.size() + 1 + "");
                         queue.notifyAll();
                     }
                 }
@@ -48,8 +48,9 @@ public class ConsumerProducer {
                         while (queue.size() == 0) {
                             queue.wait();
                         }
-                        String take = queue.take();
-                        System.err.println("消费：" + take);
+                        ArrayList<String> strings = new ArrayList<>();
+                        int i = queue.drainTo(strings, 10);
+                        System.err.println("list的size:"+strings.size());
                         queue.notifyAll();
                     }
                 }

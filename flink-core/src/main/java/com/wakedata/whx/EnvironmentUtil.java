@@ -81,7 +81,7 @@ public class EnvironmentUtil {
             }
         }
         // 设置flink默认并行度
-       // streamExecutionEnvironment.setParallelism(1);
+        // streamExecutionEnvironment.setParallelism(1);
         // 如果不开启checkpoint，立即返回就完事了
         if (!isNeedCheckPoint) {
             return streamExecutionEnvironment;
