@@ -44,7 +44,7 @@ public class TestLockSupport {
         Thread.sleep(1000L);
         t1.interrupt();
         LockSupport.unpark(t2);
-       t1.join();
+        t1.join();
         t2.join();
         System.err.println("over");
     }

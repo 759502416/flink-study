@@ -16,6 +16,13 @@ public class AppTest
     public void shouldAnswerWithTrue()
     {
         assertTrue( true );
+
+        String a = null;
+        System.err.println(String.valueOf(a).length());
+        int i = 1;
+        System.err.println(i++);
+        System.err.println(++i);
+        System.err.println(i);
     }
 
 }
