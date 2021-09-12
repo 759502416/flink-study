@@ -22,6 +22,7 @@
     <module>flink-catalog</module>
     <module>flink-async-io</module>
     <module>flink-ck-doris</module>
+      <module>flink-connectors</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>
