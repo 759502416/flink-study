@@ -71,6 +71,9 @@ public class question9 {
                 finalNum = finalNum * 10 + x % 10;
                 // 取头
                 x = x / 10;
+                if (finalNum == x) {
+                    return true;
+                }
                 if (x != 0 && (finalNum > maxValue || (finalNum == maxValue && x > 7))) {
                     return false;
                 }
