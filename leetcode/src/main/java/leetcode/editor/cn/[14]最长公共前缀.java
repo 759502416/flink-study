@@ -42,28 +42,13 @@ class question14 {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public String longestCommonPrefix(String[] strs) {
-            String minStr = strs[0];
-            int maxIndex = minStr.length();
-            char[] characters = minStr.toCharArray();
-            for (int i = 0; i < strs.length; i++) {
-                String str = strs[i];
-                int min = Math.min(str.length(), maxIndex);
-                if (min == 0) {
-                    return "";
-                }
-                for (int j = 0; j < min; j++) {
-                    if (characters[j] != str.charAt(j)) {
-                        maxIndex = j;
-                        break;
-                    }
-                    maxIndex = j + 1;
+            String str = strs[0];
+            for (String dataStr : strs) {
+                while (!dataStr.startsWith(str)) {
+                    str = str.substring(0,str.length() - 1);
                 }
             }
-            String result = "";
-            for (int i = 0; i < maxIndex; i++) {
-                result += characters[i];
-            }
-            return result;
+            return str;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
