@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class FlinkStateTestFunction {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment streamEnv = EnvironmentUtil.getStreamExecutionEnvironment();
 
         MemoryStateBackend memoryStateBackend = new MemoryStateBackend();
@@ -42,17 +42,14 @@ public class FlinkStateTestFunction {
             public Tuple2<String, Integer> map(String s) throws Exception {
 
                 if (s.equals("abc")) {
-                    throw new Exception("fuck you");
+                    throw new Exception("this is a abc!!!!");
                 }
                 return Tuple2.of(s, 1);
             }
         }).keyBy(x -> x.f0).sum(1).print();
 
         log.info("Abc");
-        try {
-            streamEnv.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        streamEnv.execute("test state");
+
     }
 }
