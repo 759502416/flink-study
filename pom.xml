@@ -178,7 +178,14 @@
       <artifactId>druid</artifactId>
       <version>1.1.20</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.78</version>
+    </dependency>
   </dependencies>
+
 
   <repositories>
     <!-- 192.168.0.201远程仓库 -->
