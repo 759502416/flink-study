@@ -16,9 +16,9 @@
         </encoder>
     </appender>
 
-    <logger name="org.apache.flink.runtime.jobgraph.JobGraph" level="DEBUG"/>
+    <logger name="org.apache.flink.runtime.jobgraph.JobGraph" level="ERROR"/>
 
-    <root level="INFO">
+    <root level="ERROR">
         <appender-ref ref="console" />
         <!--<appender-ref ref="FILE" />-->
     </root>
