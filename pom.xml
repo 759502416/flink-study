@@ -39,7 +39,7 @@
   <properties>
     <java.version>1.8</java.version>
     <junit.version>4.12</junit.version>
-    <flink.version>1.13.0</flink.version>
+    <flink.version>1.14.0</flink.version>
     <scala.version>2.12</scala.version>
     <lombok.version>1.18.12</lombok.version>
   </properties>
@@ -74,11 +74,6 @@
     <dependency>
       <groupId>org.apache.flink</groupId>
       <artifactId>flink-clients_2.12</artifactId>
-      <version>${flink.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.flink</groupId>
-      <artifactId>flink-table-planner-blink_${scala.version}</artifactId>
       <version>${flink.version}</version>
     </dependency>
     <dependency>
