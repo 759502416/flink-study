@@ -35,13 +35,14 @@ public class FlinkStateTestFunction {
         // 设置模式为精确一次
         streamEnv.getCheckpointConfig().setCheckpointInterval(3000L);
 
-        DataStreamSource<String> stringDataStreamSource = streamEnv.socketTextStream("127.0.0.1", 28099);
+        DataStreamSource<String> stringDataStreamSource = streamEnv.socketTextStream("127.0.0.1", 28088,"&");
 
         stringDataStreamSource.map(new MapFunction<String, Tuple2<String, Integer>>() {
             @Override
             public Tuple2<String, Integer> map(String s) throws Exception {
 
                 if (s.equals("abc")) {
+                    System.err.println("abc");
                     throw new Exception("this is a abc!!!!");
                 }
                 return Tuple2.of(s, 1);
@@ -50,6 +51,5 @@ public class FlinkStateTestFunction {
 
         log.info("Abc");
         streamEnv.execute("test state");
-
     }
 }
