@@ -45,7 +45,11 @@ class question7 {
 // 
 // Related Topics 数学 👍 3074 👎 0
 
-
+    /**
+     * 解题思路：搞清楚finalNum = finalNum * 10 + x % 10;的含义
+     *
+     * 
+     */
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int reverse(int x) {

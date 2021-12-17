@@ -47,6 +47,11 @@ class question1 {
 // 进阶：你可以想出一个时间复杂度小于 O(n²) 的算法吗？ 
 // Related Topics 数组 哈希表 👍 12110 👎 0
 
+    /**
+     * 解题思路：
+     * 1、创建一个 kv对存储数据，key为数据，value为index（因为需要返回的就是index）
+     * 2、遍历数组，存储到kv对，并查询kv对的key是否包含我们寻找的数据。
+     */
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {

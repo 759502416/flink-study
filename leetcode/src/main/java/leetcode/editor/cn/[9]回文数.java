@@ -50,7 +50,11 @@ class question9 {
 // 进阶：你能不将整数转为字符串来解决这个问题吗？ 
 // Related Topics 数学 👍 1616 👎 0
 
-
+    /**
+     * 解题思路：搞清楚finalNum = finalNum * 10 + x % 10;的含义
+     *
+     *
+     */
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public boolean isPalindrome(int x) {
