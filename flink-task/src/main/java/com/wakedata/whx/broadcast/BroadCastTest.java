@@ -1,5 +1,6 @@
 package com.wakedata.whx.broadcast;
 
+import ch.qos.logback.core.joran.conditional.ThenAction;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.api.common.state.MapStateDescriptor;
@@ -7,6 +8,7 @@ import org.apache.flink.api.common.state.ReadOnlyBroadcastState;
 import org.apache.flink.api.common.typeinfo.BasicTypeInfo;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.datastream.BroadcastStream;
 import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
@@ -59,14 +61,18 @@ public class BroadCastTest {
 
             @Override
             public void processElement(JSONObject value, ReadOnlyContext ctx, Collector<Tuple2<String, String>> out) throws Exception {
-
                 ReadOnlyBroadcastState<String, String> broadcastMap = ctx.getBroadcastState(ruleStateDescriptor);
-
                 String item = value.getString("item");
                 String color = value.getString("color");
                 String matchValue = broadcastMap.get(item);
+                if (matchValue == null) {
+                    Thread.sleep(30000);
+                    broadcastMap.get(item);
+                }
                 if (color.equals(matchValue)) {
                     out.collect(Tuple2.of(item, "ok"));
+                }else {
+                    out.collect(Tuple2.of(item, "notOk"));
                 }
             }
 
@@ -75,7 +81,7 @@ public class BroadCastTest {
                 String item = value.getString("item");
                 String color = value.getString("color");
                 ctx.getBroadcastState(ruleStateDescriptor).put(item, color);
-                out.collect(Tuple2.of(item, color));
+              //  out.collect(Tuple2.of(item, color));
             }
         }).addSink(new RichSinkFunction<Tuple2<String, String>>() {
             @Override

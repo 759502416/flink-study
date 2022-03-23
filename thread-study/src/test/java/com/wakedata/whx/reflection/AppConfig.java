@@ -26,6 +26,13 @@ public class AppConfig {
 
     private Unsafe unsafe;
 
+    public AppConfig(String name, String age, Integer id, Unsafe unsafe) {
+        this.name = name;
+        this.age = age;
+        this.id = id;
+        this.unsafe = unsafe;
+    }
+
     public AppConfig() {
         try {
             Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
