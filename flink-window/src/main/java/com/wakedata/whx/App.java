@@ -26,7 +26,7 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        EnvironmentUtil.turnOnCheckpoint();
+       // EnvironmentUtil.turnOnCheckpoint();
         StreamExecutionEnvironment streamExecutionEnvironment = EnvironmentUtil
             .getStreamExecutionEnvironment();
         DataStreamSource<Tuple3<String, String, Long>> tuple3DataStreamSource = streamExecutionEnvironment
