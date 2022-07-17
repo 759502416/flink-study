@@ -1,11 +1,6 @@
 package com.wakedata.whx.mysqlcdc;
 
-import java.util.concurrent.ExecutionException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.flink.api.common.JobExecutionResult;
-import org.apache.flink.connector.jdbc.dialect.MySQLDialect;
-import org.apache.flink.connector.jdbc.internal.options.JdbcOptions;
-import org.apache.flink.connector.jdbc.table.JdbcUpsertTableSink;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
@@ -37,7 +32,7 @@ public class DebeziumMysqlTest {
     @Before
     public void initEnv() {
         streamEnv = StreamExecutionEnvironment
-            .getExecutionEnvironment();
+                .getExecutionEnvironment();
         streamTableEnv = StreamTableEnvironment.create(streamEnv);
     }
 
@@ -52,7 +47,7 @@ public class DebeziumMysqlTest {
         debeziumKafkaSource.append(" 'connector' = 'kafka',");
         debeziumKafkaSource.append(" 'topic' = 'whx.test.test_cdc_mysql',");
         debeziumKafkaSource.append(
-            " 'properties.bootstrap.servers' = 'hd-node-3-41.wakedata.com:6667,hd-node-3-42.wakedata.com:6667,hd-node-3-43.wakedata.com:6667',");
+                " 'properties.bootstrap.servers' = 'hd-node-3-41.wakedata.com:6667,hd-node-3-42.wakedata.com:6667,hd-node-3-43.wakedata.com:6667',");
         debeziumKafkaSource.append(" 'properties.group.id' = 'testGroup4',");
         debeziumKafkaSource.append(" 'debezium-json.schema-include' = 'true',");
         debeziumKafkaSource.append(" 'debezium-json.timestamp-format.standard' = 'ISO-8601',");
@@ -63,7 +58,7 @@ public class DebeziumMysqlTest {
         /***
          * SINK Start
          */
-        JdbcOptions jdbcOptions = JdbcOptions.builder()
+        /*JdbcConnectionOptions jdbcOptions = JdbcConnectionOptions.builder()
             .setDBUrl("jdbc:mysql://47.75.93.78:3306/test")
             .setTableName("test.test_cdc_mysql_upser")
             .setUsername("root")
@@ -75,7 +70,7 @@ public class DebeziumMysqlTest {
             .setTableSchema(table.getSchema())
             .setOptions(jdbcOptions)
             .build();
-        jdbcUpsertTableSink.setKeyFields(new String[]{"id"});
+        jdbcUpsertTableSink.setKeyFields(new String[]{"id"});*/
         /**
          * SINK End
          */

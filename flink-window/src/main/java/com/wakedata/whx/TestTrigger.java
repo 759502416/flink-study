@@ -102,7 +102,7 @@ public class TestTrigger {
                 return test.getGameCode();
             }
         }).window(TumblingEventTimeWindows.of(Time.of(5, TimeUnit.SECONDS)))
-                .trigger(new EventTimeTrrigerWithProcessTimeTimeOut<>(10000L))
+                .allowedLateness(Time.of(10,TimeUnit.SECONDS))
                 .process(new ProcessWindowFunction<Test, Iterable<Test>, String, TimeWindow>() {
             @Override
             public void process(String s, Context context, Iterable<Test> elements, Collector<Iterable<Test>> out) throws Exception {

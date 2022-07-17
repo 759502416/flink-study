@@ -45,6 +45,13 @@
   </properties>
 
   <dependencies>
+    <!-- 时间工具类 begin -->
+    <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>5.7.17</version>
+    </dependency>
+    <!-- 时间工具类 end -->
     <dependency>
       <groupId>org.apache.flink</groupId>
       <artifactId>flink-java</artifactId>
