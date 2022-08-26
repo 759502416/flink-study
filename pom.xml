@@ -23,6 +23,7 @@
     <module>flink-async-io</module>
     <module>flink-ck-doris</module>
       <module>flink-connectors</module>
+      <module>arithmetic</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>
